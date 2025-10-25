@@ -1,0 +1,4 @@
+# Files not to add to github
+/node_modules
+/CRUD-API-Mongo
+/CRUD-MySqlNodeExpress
