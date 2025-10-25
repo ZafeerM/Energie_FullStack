@@ -1,0 +1,201 @@
+/* keep the fonts and base styles the same */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;500&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  font-family: 'Roboto', sans-serif;
+}
+
+.App::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.45);
+  z-index: 0;
+}
+
+.left-section,
+.right-section {
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+/* ---------- LEFT SIDE (Text) ---------- */
+.left-section {
+  text-align: left;
+  padding-left: 80px;
+}
+
+.login-logo {
+  width: 200px; 
+  margin: 0 auto 30px;
+  display: block;
+  filter: drop-shadow(0 0 4px rgba(255, 226, 9, 0.8)); /* subtle yellow glow */
+}
+
+
+.overlay-text {
+  max-width: 660px;
+}
+
+.overlay-text h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 80px;
+  margin-bottom: 20px; /* reduced slightly */
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.overlay-text .highlight {
+  color: #ffe209;
+}
+
+.overlay-text p {
+  font-size: 23px;
+  line-height: 1.8;
+  font-weight: 500;
+}
+
+/* ---------- RIGHT SIDE (Login) ---------- */
+.right-section {
+  justify-content: flex-end;
+  padding-right: 200px;
+}
+
+.login-box {
+  width: 550px;
+  padding: 80px;
+  border-radius: 20px;
+  text-align: center;
+  color: white;
+  backdrop-filter: blur(15px);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.12));
+  border: 1px solid rgba(255, 255, 255, 0.1); /* subtle white border instead of yellow */
+  transition: 0.3s ease-in-out;
+}
+
+.login-box h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 36px;
+  margin-bottom: 50px;
+  font-weight: 700;
+}
+
+/* ---------- FORM ---------- */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+input {
+  padding: 25px;
+  border: none; /* removed yellow border */
+  border-radius: 12px;
+  font-size: 16px;
+  background: rgba(0, 0, 0, 0.55);
+  color: white;
+  outline: none;
+  transition: 0.3s;
+  box-shadow: none; /* removed input shadow */
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+input:focus {
+  background: rgba(0, 0, 0, 0.75);
+  box-shadow: none; /* remove focus glow */
+}
+
+button {
+  background: linear-gradient(135deg, #ffe209, #ffea70);
+  color: #000;
+  border: none;
+  padding: 25px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 226, 9, 0.5);
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 25px rgba(255, 226, 9, 0.8);
+  background: linear-gradient(135deg, #ffd600, #ffe700);
+}
+
+/* ---------- BUTTONS ---------- */
+.login-btn {
+  background: linear-gradient(135deg, #ffe209, #ffea70);
+  color: #000;
+  border: none;
+  padding: 25px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 226, 9, 0.5);
+  margin-bottom: 0px;
+}
+
+.login-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 25px rgba(255, 226, 9, 0.8);
+  background: linear-gradient(135deg, #ffd600, #ffe700);
+}
+
+/* Sign Up button - secondary style */
+.signup-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffe209;
+  border: 1px solid #ffe209;
+  padding: 25px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.signup-btn:hover {
+  background: #ffe209;
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(255, 226, 9, 0.5);
+}
+
+/* Container to keep form and sign up button same width */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* ensures both form and signup stretch full width */
+  gap: 20px; /* spacing between login and sign up */
+}
+
+.signup-btn {
+  width: 100%; /* same width as login button */
+  margin-top: 0; /* spacing handled by gap */
+}
