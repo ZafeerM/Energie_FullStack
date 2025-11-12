@@ -11,7 +11,7 @@ const mydatabase = await mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
-    database: "test"
+    database: "maindb_energie"
     // NOTE: If test database not created, kindly create in Xampp first
 });
 console.log("Connected to Database.");
@@ -22,6 +22,7 @@ const app = express();
 // Allow use of json and html 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+
 //allowing 1 local host to send req to other local host (browser stops this)
 app.use(cors({
     origin: 'http://localhost:3000',
@@ -54,6 +55,8 @@ await(mydatabase.execute(`
 console.log("updated.");
 */
 
+// .sql file has all intial creation
+
 // ?----------------- End - Creation of User Tables etc -----------------
 
 
@@ -63,32 +66,20 @@ console.log("updated.");
 // Middleware authenticates login user and output only that user's data
 app.get('/', Authenticate, async(req, resp) => {
     // resp.send("Hello From Database.");
-
-    const [user_data] = await mydatabase.execute(`
-    SELECT * 
-    FROM users 
-    WHERE Username = ?`, [req.user.name]);
-
-    resp.json(user_data);
-}); 
-
-// Add User to Database (Sign Up)
-app.post('/signup', async(req, resp) => {
     try {
-        //expecting json from front-end
-        const {Username, Password} = req.body;
+        const [user_data] = await mydatabase.execute(`
+        SELECT ld.ConsumerID, ld.username, c.FName
+        FROM logindetails ld
+        JOIN consumers c ON ld.ConsumerID = c.ConsumerID
+        WHERE ld.username = ?`, [req.user.name]);
 
-        await(mydatabase.execute(`
-            INSERT INTO users(Username, password)
-            VALUES (?, ?)`, [Username, Password])
-        );
-
-        resp.status(201).json({message: "Added New User Successfully."});
-    } 
-    catch (error) {
-        resp.status(500).json({message: error.message});
+        // console.log("FROM GET BHAI:", user_data);
+        return resp.status(201).json(user_data);
+    } catch (error) {
+        return resp.status(401).json({message: error.message});
     }
-});
+
+}); 
 
 // Check User from database (Login)
 app.post('/login', async(req, resp) => {
@@ -101,7 +92,7 @@ app.post('/login', async(req, resp) => {
         
         // check user
         const fetched_data = await(mydatabase.execute(`
-        SELECT * FROM Users WHERE Username = ?`, 
+        SELECT * FROM logindetails WHERE username = ?`, 
         [Username]));
 
         // check if user not found
@@ -109,12 +100,12 @@ app.post('/login', async(req, resp) => {
             return resp.status(401).json({message: "Invalid Credentials 1"});
 
         // check password
-        if(Password === fetched_data[0][0].Password)
+        if(Password === fetched_data[0][0].password)
         {
             // We Reach here if everything is authenticated
 
             // Creating JWT token for User
-            const user = { name: fetched_data[0][0].Username };
+            const user = { name: fetched_data[0][0].username };
             const AccessKey = jwt.sign(user, process.env.TOKEN_SECRET_PASS);
 
             // Sending Token to user with Status
@@ -135,7 +126,7 @@ app.post('/login', async(req, resp) => {
 // For authentication of User Token (That user sends)
 function Authenticate(req, resp, next)
 {
-    //Token has two parts Bearer Token
+    //Token has two parts -> {Bearer Token}
     const authHeader = req.headers['authorization'];
 
     if(!authHeader) return resp.status(400).json({message: "No Token Sent"});
@@ -158,3 +149,10 @@ function Authenticate(req, resp, next)
 }
 
 // *-------------------------- END - LOGIN PAGE -------------------------
+
+
+// ?--------------------------- DASHBOARD PAGE --------------------------
+
+
+
+// ?------------------------ END - DASHBOARD PAGE -----------------------

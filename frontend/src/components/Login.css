@@ -127,7 +127,7 @@ input:focus {
   box-shadow: none; /* remove focus glow */
 }
 
-button {
+/* button {
   background: linear-gradient(135deg, #ffe209, #ffea70);
   color: #000;
   border: none;
@@ -144,7 +144,7 @@ button:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 25px rgba(255, 226, 9, 0.8);
   background: linear-gradient(135deg, #ffd600, #ffe700);
-}
+} */
 
 /* ---------- BUTTONS ---------- */
 .login-btn {
