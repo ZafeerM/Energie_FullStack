@@ -10,7 +10,7 @@ import cors from 'cors';
 const mydatabase = await mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "",
+    password: "oFCW0MSM#2010",
     database: "maindb_energie"
     // NOTE: If test database not created, kindly create in Xampp first
 });
@@ -25,7 +25,7 @@ app.use(express.urlencoded({extended: false}));
 
 //allowing 1 local host to send req to other local host (browser stops this)
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'http://localhost:5173',
     credentials: true
 }));
 
@@ -63,23 +63,6 @@ console.log("updated.");
 // *----------------------------- LOGIN PAGE ----------------------------
 
 // Simple Response on localhost:3000 (Shows all users table data)
-// Middleware authenticates login user and output only that user's data
-app.get('/', Authenticate, async(req, resp) => {
-    // resp.send("Hello From Database.");
-    try {
-        const [user_data] = await mydatabase.execute(`
-        SELECT ld.ConsumerID, ld.username, c.FName
-        FROM logindetails ld
-        JOIN consumers c ON ld.ConsumerID = c.ConsumerID
-        WHERE ld.username = ?`, [req.user.name]);
-
-        // console.log("FROM GET BHAI:", user_data);
-        return resp.status(201).json(user_data);
-    } catch (error) {
-        return resp.status(401).json({message: error.message});
-    }
-
-}); 
 
 // Check User from database (Login)
 app.post('/login', async(req, resp) => {
@@ -123,6 +106,53 @@ app.post('/login', async(req, resp) => {
     }
 });
 
+// *-------------------------- END - LOGIN PAGE -------------------------
+
+
+// ?--------------------------- DASHBOARD PAGE --------------------------
+
+// Middleware authenticates login user and output only that user's data
+app.get('/ProfileInfo', Authenticate, async(req, resp) => {
+    // resp.send("Hello From Database.");
+    try {
+        const [user_data] = await mydatabase.execute(`
+        SELECT ld.ConsumerID, ld.username, c.FName, c.LName, c.ContactNo, c.Address1, c.Address2
+        FROM logindetails ld
+        JOIN consumers c ON ld.ConsumerID = c.ConsumerID
+        WHERE ld.username = ?`, [req.user.name]);
+
+        // console.log("FROM GET BHAI:", user_data);
+        return resp.status(201).json(user_data);
+    } catch (error) {
+        return resp.status(401).json({message: error.message});
+    }
+
+}); 
+
+// For more items its axios.post(url, data, headers)
+app.post('/UpdatePass', Authenticate, async(req, resp) => {
+    const sql = 'UPDATE logindetails SET password = ? WHERE (username = ? AND password = ?)';
+
+    try {
+        const {oldpass, newpass} = req.body;
+
+        // For items its axios.post(url, data, headers)
+        const [data] = await mydatabase.execute(sql, [newpass, req.user.name, oldpass]); 
+
+        return (data.affectedRows == 0 ? resp.status(400).json({message : "Incorrect pass."}) : resp.status(201).json(data));
+
+        
+    } catch (error) {
+        return resp.status(401).json({message : error.message});
+    }
+})
+
+
+// ?------------------------ END - DASHBOARD PAGE -----------------------
+
+
+// !---------------------------- MIDDLEWARE -----------------------------
+
 // For authentication of User Token (That user sends)
 function Authenticate(req, resp, next)
 {
@@ -148,11 +178,4 @@ function Authenticate(req, resp, next)
     })
 }
 
-// *-------------------------- END - LOGIN PAGE -------------------------
-
-
-// ?--------------------------- DASHBOARD PAGE --------------------------
-
-
-
-// ?------------------------ END - DASHBOARD PAGE -----------------------
+// !------------------------- END - MIDDLEWARE --------------------------
