@@ -17,6 +17,8 @@ const LoginPage = () => {
     e.preventDefault();
 
     alert('Admin Login Triggered.');
+
+    navigate('/Admin', {replace : true});
   }
 
   const HandleloginMeterReader = (e) => {
@@ -120,7 +122,7 @@ const LoginPage = () => {
               <img src={logo} className='h-23 w-40 shadow-blue-50 mb-8' />
 
               {/* Customer Admin  Meter Reader Selection */}
-              <div className='flex items-center'>
+              <div className='flex items-center mr-3'>
 
                 <div className={`-z-1 absolute h-7 rounded-md p-1 bg-linear-to-r from-[#ffe209] to-[#ffea70] transition-all duration-300 w-24
                                 ${isadmin ? "translate-x-[178%]": "-translate-x-3"}

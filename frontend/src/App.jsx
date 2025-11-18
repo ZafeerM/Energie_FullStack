@@ -4,9 +4,10 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 // Import pages from Components
 import LoginPage from './components/LoginPage'
 import DashboardPage from './components/DashboardPage'
-import ProtectedRoutesDash from './components/ProtectedRoutesDash'
-import ProtectedRoutesLogin from './components/ProtectedRoutesLogin'
+import ProtectedRoutesDash from './components/ProtectedRoutes/ProtectedRoutesDash'
+import ProtectedRoutesLogin from './components/ProtectedRoutes/ProtectedRoutesLogin'
 import Meterreader from './components/Meterreader'
+import AdminDashboard from './components/AdminDashboard'
 
 function App() {
   // localStorage.removeItem('sessionToken');
@@ -20,6 +21,7 @@ function App() {
         
           {/* Temporary */}
           <Route path='/Meterreader' element={<Meterreader />}></Route>
+          <Route path='/Admin' element={<AdminDashboard />}></Route>
         </Routes>
       </BrowserRouter>
     </>
