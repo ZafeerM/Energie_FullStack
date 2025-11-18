@@ -10,7 +10,11 @@ import cors from 'cors';
 const mydatabase = await mysql.createConnection({
     host: "localhost",
     user: "root",
+<<<<<<< HEAD
     password: "1234",
+=======
+    password: "",
+>>>>>>> a2d0fcc7e469bca12d8964597ac104efad469e7e
     database: "maindb_energie"
     // NOTE: If test database not created, kindly create in Xampp first
 });
