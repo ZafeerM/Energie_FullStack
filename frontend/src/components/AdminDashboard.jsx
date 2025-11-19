@@ -1,13 +1,19 @@
 import React, { useState } from 'react'
 import Modal from './AdminDashboard/ModalNewCustomer';
+import { useNavigate } from 'react-router-dom';
 
 //Admin Imports
 // import AdminDashBtn from './AdminDashboard/AdminDashBtn'
-
 const AdminDashboard = () => {
     const [active, setactive] = useState(null);
-
     const close = ()=>setactive(null);
+    const navigate = useNavigate();
+
+    const Adminlogout = () => {
+        localStorage.removeItem('adminToken');
+        navigate('/Login', {replace : true});
+    }
+
 
     return (
         // Main background
@@ -57,6 +63,9 @@ const AdminDashboard = () => {
                     </button>
 
                 </div>
+                <button className='bg-red-600 py-2.5 px-10 rounded-md text-white font-bold
+                                    hover:opacity-80 hover:cursor-pointer' 
+                        onClick={Adminlogout}>Log Out</button>
             </div>
             
             {/* Call the Pop Up */}

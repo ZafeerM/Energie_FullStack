@@ -13,12 +13,38 @@ const LoginPage = () => {
 
   // localStorage.removeItem('sessionToken');
 
-  const HandleloginAdmin = (e) => {
+  const HandleloginAdmin = async (e) => {
     e.preventDefault();
 
-    alert('Admin Login Triggered.');
+    const adminloginURL = 'http://localhost:5050/loginAdmin';
 
-    navigate('/Admin', {replace : true});
+    try {
+      const response = await axios.post(adminloginURL, {username : email, password: pass});
+      const token = response.data.Token;
+      localStorage.setItem('adminToken', token);
+      console.log('Admin Token: ', token);
+      alert(response.data.message);
+
+      navigate('/Admin', {replace : true});
+    } catch (error) {
+        if(error.response) {
+          console.error("Status: ", error.response.status);
+          console.error("Error data: ", error.response.data);
+          const errMsg = error.response.message || "Invalid Credentials.";
+          alert(`Login Failed: ${errMsg}`);
+        }
+        else if(error.request) {
+          console.error("No reponse recieved. Network or CORS err.", error.request);
+          alert("Login Failed: Connect to Server err.");
+        }
+        else
+        {
+          console.error("Unexpected error prolly axios", error.message);
+          alert(`Login Failed: Unexpected error ${error.message}`);
+        }
+    }
+
+    // navigate('/Admin', {replace : true});
   }
 
   const HandleloginMeterReader = (e) => {
@@ -44,7 +70,7 @@ const LoginPage = () => {
         const token = response.data.token;
         localStorage.setItem('sessionToken', token);
         console.log("Login Success - Token Recieved: ", token);
-        alert("logged in");
+        alert(response.data.message);
         navigate('/Dashboard', {replace : true});
         
       }catch(error){
