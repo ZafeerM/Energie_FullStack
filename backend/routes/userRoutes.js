@@ -1,5 +1,5 @@
 import express from 'express';
-import { MyRequests, NewRequest, ProfileInfo, UpdatePass, DeleteRequest, MyPayments, PayBill } from '../controllers/userController.js';
+import { MyRequests, NewRequest, ProfileInfo, UpdatePass, DeleteRequest, MyPayments, PayBill, EnterReading } from '../controllers/userController.js';
 import { Authenticate } from '../middleware/auth.js';
 
 const router = express.Router();
@@ -15,6 +15,7 @@ router.post('/Paybill', Authenticate, PayBill);
 router.delete('/DeleteRequest', Authenticate, DeleteRequest);
 
 
+router.post('/EnterReading', EnterReading);
 
 
 export default router;

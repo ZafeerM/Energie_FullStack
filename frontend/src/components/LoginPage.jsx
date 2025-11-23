@@ -47,12 +47,38 @@ const LoginPage = () => {
     // navigate('/Admin', {replace : true});
   }
 
-  const HandleloginMeterReader = (e) => {
+  const HandleloginMeterReader = async(e) => {
     e.preventDefault();
 
-    alert("Hello Meter Reader");
+    const adminloginURL = 'http://localhost:5050/loginMeter';
 
-    navigate('/Meterreader', {replace : true});
+    try {
+      const response = await axios.post(adminloginURL, {username : email, password: pass});
+      const token = response.data.Token;
+      localStorage.setItem('meterToken', token);
+      console.log('Meter Token: ', token);
+      alert(response.data.message);
+
+      navigate('/Meterreader', {replace : true});
+    } catch (error) {
+        if(error.response) {
+          console.error("Status: ", error.response.status);
+          console.error("Error data: ", error.response.data);
+          const errMsg = error.response.message || "Invalid Credentials.";
+          alert(`Login Failed: ${errMsg}`);
+        }
+        else if(error.request) {
+          console.error("No reponse recieved. Network or CORS err.", error.request);
+          alert("Login Failed: Connect to Server err.");
+        }
+        else
+        {
+          console.error("Unexpected error prolly axios", error.message);
+          alert(`Login Failed: Unexpected error ${error.message}`);
+        }
+    }
+
+    // navigate('/Meterreader', {replace : true});
   }
 
   const HandleloginCustomer = async (e) => {

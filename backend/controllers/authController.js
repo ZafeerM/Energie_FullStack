@@ -70,5 +70,27 @@ export async function loginAdmin(req, resp) {
     }
 };
 
+export async function loginMeter(req, resp) {
+    // const sqluser = 'SELECT * FROM admins WHERE Email = ?';
+    const sql = 'SELECT * FROM meterreaders WHERE (username = ? AND password = ?)';
+    try {
+        const{username, password} = req.body;
+        
+        const fetch = await mydatabase.execute(sql, [username, password]);
+
+        if(fetch[0].length == 0) {
+            return resp.status(401).json({message : "Invalid Username Or Password."});
+        }
+
+        const user = { name: fetch[0][0].username };
+        const token = jwt.sign(user, process.env.TOKEN_SECRET_PASS);
+
+        return resp.status(201).json({Token: token, 
+                                      Message: "MeterReader login Success"});
+    } catch (error) {
+        return resp.status(500).json({message : error.message});
+    }
+};
+
 
 // *-------------------------- END - LOGIN PAGE -------------------------

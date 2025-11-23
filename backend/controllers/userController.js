@@ -125,7 +125,6 @@ export async function MyPayments(req, resp) {
     }
 }
 
-
 export async function PayBill(req, resp) {
 
     const connection = await mydatabase.getConnection();
@@ -156,7 +155,7 @@ export async function PayBill(req, resp) {
         if(balance === 0) {
             const updateconnection = `UPDATE connections c
                                       JOIN bills b ON c.ConnectionID = b.ConnectionID
-                                      SET c.BalancePayment = ?, b.WarningCount = 0
+                                      SET c.BalancePayment = ?, c.WarningCount = 0
                                       WHERE b.BillID = ?`;
             
             await connection.execute(updateconnection, [balance, bid]);
@@ -205,6 +204,36 @@ export async function PayBill(req, resp) {
     //         new Date()       
     //     ]);
 }
+
+
+
+export async function EnterReading(req, resp) {
+  const sql = `UPDATE readings
+               SET ReadingValue = ?, ReadingDate = ?
+               WHERE MeterID = ?`;
+
+    // "Insert into Readings (MeterID, ReadingValue, ReadingDate) values(?, ?, ?)";
+
+  try {
+    const { MeterID, ReadingValue, ReadingDate } = req.body;
+
+    const [data] = await mydatabase.execute(sql, [
+      ReadingValue,
+      ReadingDate,
+      MeterID
+    ]);
+    return resp
+      .status(201)
+      .json({ message: "Success!", readingId: data.insertId });
+  } catch (error) {
+    if (error.code === "ER_NO_REFERENCED_ROW_2") {
+      return resp.status(400).json({ message: "Invalid Meter ID!" });
+    }
+    // For any other unexpected errors
+    return resp.status(500).json({ message: "Unexpected error occurred" });
+  }
+}
+
 
 
 // ?------------------------ END - DASHBOARD PAGE -----------------------

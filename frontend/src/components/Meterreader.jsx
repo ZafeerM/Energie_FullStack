@@ -1,9 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function MeterReaderForm() {
   const EnterReadingURL = "http://localhost:5050/EnterReading";
+  const navigate = useNavigate();
   const [values, setValues] = useState({
     MeterID: "",
     ReadingValue: "",
@@ -14,6 +16,12 @@ export default function MeterReaderForm() {
     const newValues = { ...values, [name]: value };
     setValues(newValues);
   };
+  
+  const Meterlogout = () => {
+        localStorage.removeItem('meterToken');
+        navigate('/Login', {replace : true});
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -104,6 +112,12 @@ export default function MeterReaderForm() {
               Submit Reading
             </button>
           </form>
+
+          <div className="w-full flex justify-center mt-8">
+          <button className='bg-red-600 py-2.5 px-10 rounded-md text-white font-bold
+                                    hover:opacity-80 hover:cursor-pointer' 
+                        onClick={Meterlogout}>Log Out</button>
+          </div>
         </div>
       </div>
     </>

@@ -9,6 +9,7 @@ import ProtectedRoutesLogin from './components/ProtectedRoutes/ProtectedRoutesLo
 import Meterreader from './components/Meterreader'
 import AdminDashboard from './components/AdminDashboard'
 import ProtectedRoutesAdmin from './components/ProtectedRoutes/ProtectedRoutesAdmin'
+import ProtectedRoutesMeter from './components/ProtectedRoutes/ProtectedRoutesMeter'
 
 function App() {
   // localStorage.removeItem('sessionToken');
@@ -22,7 +23,7 @@ function App() {
           <Route path='/Admin' element={<ProtectedRoutesAdmin><AdminDashboard /></ProtectedRoutesAdmin>}></Route>
           
           {/* Temporary */}
-          <Route path='/Meterreader' element={<Meterreader />}></Route>
+          <Route path='/Meterreader' element={<ProtectedRoutesMeter><Meterreader /></ProtectedRoutesMeter>}></Route>
         </Routes>
       </BrowserRouter>
     </>
