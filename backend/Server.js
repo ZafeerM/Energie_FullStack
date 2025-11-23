@@ -6,6 +6,7 @@ import cors from 'cors';
 //import server components
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
 
 // !------------------ Connect & SetUp MySql database ------------------
 
@@ -25,6 +26,7 @@ app.use(cors({
 // Allow using of all routes we made
 app.use('/', authRoutes);
 app.use('/', userRoutes);
+app.use('/', adminRoutes);
 
 // Starting listening server
 app.listen(5050, () => {

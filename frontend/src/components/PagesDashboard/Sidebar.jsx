@@ -40,25 +40,25 @@ const Sidebar = ({currentpage, setpages}) => {
                             ${currentpage === 'EditDetails' ? "bg-amber-300 rounded-md text-black" : ""}`}
                 onClick={() => {setpages('EditDetails')}}>Edit Details</li>
             
-            <li className={`hover:cursor-pointer hover:opacity-80 transition-all duration-100 p-1
+            {/* <li className={`hover:cursor-pointer hover:opacity-80 transition-all duration-100 p-1
                             ${currentpage === 'ViewBills' ? "bg-amber-300 rounded-md text-black" : ""}`}
-                onClick={() => {setpages('ViewBills')}}>View Bills</li>
+                onClick={() => {setpages('ViewBills')}}>View Bills</li> */}
 
-            <li className={`hover:cursor-pointer hover:opacity-80 transition-all duration-100 p-1
+            {/* <li className={`hover:cursor-pointer hover:opacity-80 transition-all duration-100 p-1
                             ${currentpage === 'UsageLogs' ? "bg-amber-300 rounded-md text-black" : ""}`}
-                onClick={() => {setpages('UsageLogs')}}>Usage Logs</li>
+                onClick={() => {setpages('UsageLogs')}}>Usage Logs</li> */}
 
-            <li className={`hover:cursor-pointer hover:opacity-80 transition-all duration-100 p-1
+            {/* <li className={`hover:cursor-pointer hover:opacity-80 transition-all duration-100 p-1
                             ${currentpage === 'PayMyBill' ? "bg-amber-300 rounded-md text-black" : ""}`}
-                onClick={() => {setpages('PayMyBill')}}>Pay My Bill</li>
+                onClick={() => {setpages('PayMyBill')}}>Pay My Bill</li> */}
 
             <li className={`hover:cursor-pointer hover:opacity-80 transition-all duration-100 p-1
                             ${currentpage === 'MyPayments' ? "bg-amber-300 rounded-md text-black" : ""}`}
                 onClick={() => {setpages('MyPayments')}}>My Payments</li>
 
             <li className={`hover:cursor-pointer hover:opacity-80 transition-all duration-100 p-1
-                            ${currentpage === 'MyWarnings' ? "bg-amber-300 rounded-md text-black" : ""}`}
-                onClick={() => {setpages('MyWarnings')}}>My Warnings</li>
+                            ${currentpage === 'Complaints' ? "bg-amber-300 rounded-md text-black" : ""}`}
+                onClick={() => {setpages('Complaints')}}>Complaints</li>
 
             <li className={`hover:cursor-pointer hover:opacity-80 transition-all duration-100 p-1
                             ${currentpage === 'MyStatus' ? "bg-amber-300 rounded-md text-black" : ""}`}

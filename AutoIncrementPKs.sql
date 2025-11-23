@@ -212,3 +212,9 @@ ALTER TABLE Payments AUTO_INCREMENT = 1;
 ALTER TABLE Warnings AUTO_INCREMENT = 1;
 ALTER TABLE Complaints AUTO_INCREMENT = 1;
 ALTER TABLE ConnectionRequests AUTO_INCREMENT = 1;
+
+ALTER TABLE `maindb_energie`.`connectionrequests` 
+ADD COLUMN `Address` VARCHAR(45) NOT NULL AFTER `Status`;
+
+ALTER TABLE `maindb_energie`.`connectionrequests` 
+ADD COLUMN `Type` VARCHAR(45) NOT NULL AFTER `Address`;

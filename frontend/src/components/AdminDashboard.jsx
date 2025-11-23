@@ -3,7 +3,13 @@ import Modal from './AdminDashboard/ModalNewCustomer';
 import { useNavigate } from 'react-router-dom';
 
 //Admin Imports
+import Addnewcustomer from './AdminDashboard/Addnewcustomer';
+import HandleNewConnections from './AdminDashboard/HandleNewConnections';
+import GenerateBills from './AdminDashboard/GenerateBills';
+import ViewAllCustomers from './AdminDashboard/ViewAllCustomers';
+import MeterBlocking from './AdminDashboard/MeterBlocking';
 // import AdminDashBtn from './AdminDashboard/AdminDashBtn'
+
 const AdminDashboard = () => {
     const [active, setactive] = useState(null);
     const close = ()=>setactive(null);
@@ -38,27 +44,31 @@ const AdminDashboard = () => {
                     </button>
                     <button className='text-white font-semibold w-xs bg-amber-950 rounded-md 
                         py-3 flex items-center justify-center transition-all duration-300
-                        hover:bg-white hover:text-amber-950 hover:cursor-pointer'>
-                        View All Details
+                        hover:bg-white hover:text-amber-950 hover:cursor-pointer'
+                        onClick={()=>{setactive("ViewAllCustomers")}}>
+                        View All Customers
                     </button>
                     <button className='text-white font-semibold w-xs bg-amber-950 rounded-md 
                         py-3 flex items-center justify-center transition-all duration-300
-                        hover:bg-white hover:text-amber-950 hover:cursor-pointer'>
+                        hover:bg-white hover:text-amber-950 hover:cursor-pointer'
+                            onClick={()=>{setactive("HandleNewConnections")}}>
                         Handle New Connection
                     </button>
                     <button className='text-white font-semibold w-xs bg-amber-950 rounded-md 
                         py-3 flex items-center justify-center transition-all duration-300
-                        hover:bg-white hover:text-amber-950 hover:cursor-pointer'>
-                        Handle Info Change Req
+                        hover:bg-white hover:text-amber-950 hover:cursor-pointer'
+                            onClick={()=>{setactive("GenerateBills")}}>
+                        Generate Bills
                     </button>
                     <button className='text-white font-semibold w-xs bg-amber-950 rounded-md 
                         py-3 flex items-center justify-center transition-all duration-300
                         hover:bg-white hover:text-amber-950 hover:cursor-pointer'>
-                        Warnings Handler
+                        Complaint Handler
                     </button>
                     <button className='text-white font-semibold w-xs bg-amber-950 rounded-md 
                         py-3 flex items-center justify-center transition-all duration-300
-                        hover:bg-white hover:text-amber-950 hover:cursor-pointer'>
+                        hover:bg-white hover:text-amber-950 hover:cursor-pointer'
+                        onClick={()=>{setactive("MeterBlocking")}}>
                         Meter blocking Handler
                     </button>
 
@@ -69,8 +79,11 @@ const AdminDashboard = () => {
             </div>
             
             {/* Call the Pop Up */}
-            <Modal checkOpen={active === 'NewCustomer'} onClose={close}>Add new consumer</Modal>
-        
+            <Modal checkOpen={active === 'NewCustomer'} onClose={close}><Addnewcustomer /></Modal>
+            <Modal checkOpen={active === 'HandleNewConnections'} onClose={close}><HandleNewConnections/></Modal>
+            <Modal checkOpen={active === 'GenerateBills'} onClose={close}><GenerateBills /></Modal>
+            <Modal checkOpen={active === 'ViewAllCustomers'} onClose={close}><ViewAllCustomers /></Modal>
+            <Modal checkOpen={active === 'MeterBlocking'} onClose={close}><MeterBlocking /></Modal>
         </div>
     )
 }

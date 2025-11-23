@@ -23,7 +23,7 @@ const LoginPage = () => {
       const token = response.data.Token;
       localStorage.setItem('adminToken', token);
       console.log('Admin Token: ', token);
-      alert(response.data.message);
+      alert("Admin Logged in Successful.");
 
       navigate('/Admin', {replace : true});
     } catch (error) {
@@ -140,7 +140,7 @@ const LoginPage = () => {
         {/* RIGHT SECTION */}
         <div className= {`z-10 xl:px-30 transform transition-all ease-in-out duration-700 
                           ${isadmin ? "xl:-translate-x-[150%]": ""}
-                          ${isMtrRdr ? "xl:-translate-x-[80%]" : ""} `}>
+                          ${isMtrRdr ? "xl:-translate-x-3/4" : ""} `}>
             {/* Login Box */}
             <div className= "flex flex-col justify-center items-center  rounded-2xl
                              bg-[#ffffff14] backdrop-blur-md shadow-amber-300 shadow-sm xl:w-[400px] xl:h-[500px]">

@@ -7,6 +7,8 @@ import Profileinfo from './PagesDashboard/Profileinfo';
 import NewRequest from './PagesDashboard/NewRequest';
 import SetPassword from './PagesDashboard/SetPassword';
 import EditDetails from './PagesDashboard/EditDetails';
+import MyRequests from './PagesDashboard/MyRequests';
+import MyPayments from './PagesDashboard/MyPayments';
 
 
 const DashboardPage = () => {
@@ -26,10 +28,10 @@ const DashboardPage = () => {
       {/* Page display by page usestate */}
       {page === 'ProfileInfo' ? <Profileinfo /> : null}
       {page === 'NewRequest' ? <NewRequest /> : null}
-      
+      {page === 'MyRequest' ? <MyRequests /> : null}
       {page === 'SetPassword' ? <SetPassword /> : null}
       {page === 'EditDetails' ? <EditDetails /> : null}
-
+      {page === 'MyPayments' ? <MyPayments /> : null}
     </div>
 
     </>
