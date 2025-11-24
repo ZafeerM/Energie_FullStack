@@ -20,7 +20,7 @@ const MyPayments = () => {
             if(error.response){
             console.error("Status: ", error.response.status);
             console.error("Message: ", error.response.data);
-            alert(`Error : ${error.response.data.message}`);
+            // alert(`Error : ${error.response.data.message}`);
             }
             else if(error.request) {
                 console.error("No response recieved.");

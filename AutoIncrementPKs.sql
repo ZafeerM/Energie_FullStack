@@ -213,8 +213,26 @@ ALTER TABLE Warnings AUTO_INCREMENT = 1;
 ALTER TABLE Complaints AUTO_INCREMENT = 1;
 ALTER TABLE ConnectionRequests AUTO_INCREMENT = 1;
 
+
+//-------------FURTHER CHANGES
 ALTER TABLE `maindb_energie`.`connectionrequests` 
 ADD COLUMN `Address` VARCHAR(45) NOT NULL AFTER `Status`;
 
 ALTER TABLE `maindb_energie`.`connectionrequests` 
 ADD COLUMN `Type` VARCHAR(45) NOT NULL AFTER `Address`;
+
+ALTER TABLE `maindb_energie`.`warnings` 
+DROP COLUMN `NextActionOn`;
+
+ALTER TABLE `maindb_energie`.`complaints` 
+DROP FOREIGN KEY `fk_Complaints_Connection`;
+ALTER TABLE `maindb_energie`.`complaints` 
+DROP COLUMN `ConnectionID`,
+CHANGE COLUMN `ComplaintType` `ComplaintDetails` VARCHAR(45) NOT NULL ,
+DROP INDEX `fk_Complaints_Connection` ;
+;
+
+ALTER TABLE `maindb_energie`.`complaints` 
+CHANGE COLUMN `ComplaintDetails` `ComplaintDetails` VARCHAR(100) NOT NULL ;
+
+

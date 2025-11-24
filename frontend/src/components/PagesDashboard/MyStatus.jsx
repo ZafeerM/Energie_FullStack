@@ -2,47 +2,16 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
-const MeterBlocking = () => {
+const MyStatus = () => {
     const [serverdata, setserverdata] = useState([]);
     
-
-    const blockMeter = async(id) => {
-        try {
-            const Token = localStorage.getItem('adminToken');
-
-            // if(!Token) return;
-
-            const url = 'http://localhost:5050/BlockMeter';
-            const response = await axios.post(url, {meter:id}, {headers : {"Authorization" : `Bearer ${Token}`}});
-            // console.log("Response: ", response.data);
-            alert("Meter Blocked Successfully!");
-            getMyRequests();
-            window.location.reload();
-            
-        } catch (error) {
-            if(error.response){
-            console.error("Status: ", error.response.status);
-            console.error("Message: ", error.response.data);
-            alert(`Error : ${error.response.data.message}`);
-            }
-            else if(error.request) {
-                console.error("No response recieved.");
-                alert('No Response, connect to server.')
-            }
-            else{
-                console.error("Unexpected error.");
-                alert(error);
-            }
-        }
-    }
-
     const getMyRequests = async() => {
         try {
-            const Token = localStorage.getItem('adminToken');
+            const Token = localStorage.getItem('sessionToken');
 
             // if(!Token) return;
 
-            const url = 'http://localhost:5050/MeterBlocking';
+            const url = 'http://localhost:5050/MyStatus';
             const response = await axios.get(url, {headers : {"Authorization" : `Bearer ${Token}`}});
             // console.log("Response: ", response.data);
             setserverdata(response.data);
@@ -64,10 +33,8 @@ const MeterBlocking = () => {
         }
     }
     
-    useEffect(() => {
-            getMyRequests();
-        }, []);
-    
+    getMyRequests();
+
     return (
                 <div className='flex flex-col justify-center items-center w-full'>
                     
@@ -79,8 +46,6 @@ const MeterBlocking = () => {
                             <p className='mr-5'>ConsumerID</p>
                             <p className='mr-14'>Warnings</p>
                             <p className='mr-0'>Balance</p>
-
-
                         </div>
 
                         <div className='flex flex-col h-72 overflow-y-auto items-center'>
@@ -118,15 +83,6 @@ const MeterBlocking = () => {
                                                         ${req.Status === "Active" ? "bg-green-400" : "bg-red-400"}`}>{req.Status}</p>
                                     </div>
                                     
-                                    <div className='w-32'>
-                                        <button className={`w-20 bg-red-500 text-xs p-1 rounded-md text-white cursor-pointer flex justify-center items-center
-                                                        hover:opacity-80
-                                                        ${req.WarningCount > 2 ? "":"hidden"}
-                                                        ${req.Status === "Blocked" ? "hidden":""}`}
-                                                onClick={() => blockMeter(req.MeterID)}>
-                                            Block Meter
-                                        </button>
-                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -135,4 +91,4 @@ const MeterBlocking = () => {
             )
 }
 
-export default MeterBlocking
+export default MyStatus

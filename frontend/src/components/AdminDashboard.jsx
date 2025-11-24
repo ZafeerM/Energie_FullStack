@@ -8,6 +8,7 @@ import HandleNewConnections from './AdminDashboard/HandleNewConnections';
 import GenerateBills from './AdminDashboard/GenerateBills';
 import ViewAllCustomers from './AdminDashboard/ViewAllCustomers';
 import MeterBlocking from './AdminDashboard/MeterBlocking';
+import ComplaintHandler from './AdminDashboard/ComplaintHandler';
 // import AdminDashBtn from './AdminDashboard/AdminDashBtn'
 
 const AdminDashboard = () => {
@@ -62,7 +63,8 @@ const AdminDashboard = () => {
                     </button>
                     <button className='text-white font-semibold w-xs bg-amber-950 rounded-md 
                         py-3 flex items-center justify-center transition-all duration-300
-                        hover:bg-white hover:text-amber-950 hover:cursor-pointer'>
+                        hover:bg-white hover:text-amber-950 hover:cursor-pointer'
+                            onClick={()=>{setactive("ComplaintHandler")}}>
                         Complaint Handler
                     </button>
                     <button className='text-white font-semibold w-xs bg-amber-950 rounded-md 
@@ -84,6 +86,7 @@ const AdminDashboard = () => {
             <Modal checkOpen={active === 'GenerateBills'} onClose={close}><GenerateBills /></Modal>
             <Modal checkOpen={active === 'ViewAllCustomers'} onClose={close}><ViewAllCustomers /></Modal>
             <Modal checkOpen={active === 'MeterBlocking'} onClose={close}><MeterBlocking /></Modal>
+            <Modal checkOpen={active === 'ComplaintHandler'} onClose={close}><ComplaintHandler /></Modal>
         </div>
     )
 }

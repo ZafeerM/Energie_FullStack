@@ -171,6 +171,13 @@ export async function GenerateBill(req, resp) {
 
         await connection.execute(updateconnection, [totalAmount, warning, meter]);
 
+        if(warning > 0)
+        {
+            const updatewarnings = `INSERT INTO warnings (ConnectionID, DateIssued)
+                                    VALUES(?, NOW())`;
+            await connection.execute(updatewarnings, [cid])
+        }
+
         //UPDATE READINGS
         const updateunits = `UPDATE readings
                              SET ReadingValue = -1
@@ -228,6 +235,34 @@ export async function BlockMeter(req, resp) {
         await mydatabase.execute(sql, ["Blocked", meter]);
     
         return resp.status(201).json({message : "Blocked Successfully."});
+    } catch (error) {
+        return resp.status(500).json({message: error.message});
+    }
+}
+
+export async function GetComplaints(req, resp) {
+    try {
+        const sql = `SELECT *
+                     FROM complaints
+                     ORDER BY Severity DESC`;
+
+        const [data] = await mydatabase.execute(sql);
+    
+        return resp.status(201).json(data);
+    } catch (error) {
+        return resp.status(500).json({message: error.message});
+    }
+}
+
+export async function DeleteComplaint(req, resp) {
+    try {
+        const {cid} = req.body;
+        const sql = `DELETE FROM complaints
+                     WHERE ComplaintID = ?`;
+
+        await mydatabase.execute(sql, [cid]);
+    
+        return resp.status(201).json({message:"Complaint Closed Successfully!"});
     } catch (error) {
         return resp.status(500).json({message: error.message});
     }

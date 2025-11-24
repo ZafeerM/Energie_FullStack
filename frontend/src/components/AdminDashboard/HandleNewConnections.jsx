@@ -20,7 +20,7 @@ const HandleNewConnections = () => {
             if(error.response){
             console.error("Status: ", error.response.status);
             console.error("Message: ", error.response.data);
-            alert(`Error : ${error.response.data.message}`);
+            // alert(`Error : ${error.response.data.message}`);
             }
             else if(error.request) {
                 console.error("No response recieved.");
@@ -46,6 +46,8 @@ const HandleNewConnections = () => {
             setserverdata(prev =>
             prev.map(req =>
             req.RequestID === id ? { ...req, Status: update } : req));
+
+            window.location.reload();
         
         } catch (error) {
             if(error.response){

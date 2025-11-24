@@ -36,9 +36,7 @@ const Sidebar = ({currentpage, setpages}) => {
                             ${currentpage === 'SetPassword' ? "bg-amber-300 rounded-md text-black" : ""}`}
                 onClick={() => {setpages('SetPassword')}}>Set Password</li>
             
-            <li className={`hover:cursor-pointer hover:opacity-80 transition-all duration-100 p-1
-                            ${currentpage === 'EditDetails' ? "bg-amber-300 rounded-md text-black" : ""}`}
-                onClick={() => {setpages('EditDetails')}}>Edit Details</li>
+
             
             {/* <li className={`hover:cursor-pointer hover:opacity-80 transition-all duration-100 p-1
                             ${currentpage === 'ViewBills' ? "bg-amber-300 rounded-md text-black" : ""}`}
@@ -59,6 +57,10 @@ const Sidebar = ({currentpage, setpages}) => {
             <li className={`hover:cursor-pointer hover:opacity-80 transition-all duration-100 p-1
                             ${currentpage === 'Complaints' ? "bg-amber-300 rounded-md text-black" : ""}`}
                 onClick={() => {setpages('Complaints')}}>Complaints</li>
+            
+            <li className={`hover:cursor-pointer hover:opacity-80 transition-all duration-100 p-1
+                            ${currentpage === 'MyComplaints' ? "bg-amber-300 rounded-md text-black" : ""}`}
+                onClick={() => {setpages('MyComplaints')}}>My Complaints</li>
 
             <li className={`hover:cursor-pointer hover:opacity-80 transition-all duration-100 p-1
                             ${currentpage === 'MyStatus' ? "bg-amber-300 rounded-md text-black" : ""}`}

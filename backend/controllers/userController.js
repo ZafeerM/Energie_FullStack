@@ -106,7 +106,8 @@ export async function MyPayments(req, resp) {
                      FROM bills b
                      JOIN connections c ON c.ConnectionID = b.ConnectionID
                      JOIN logindetails ld ON ld.ConsumerID = c.ConsumerID
-                     WHERE username = ?`;
+                     WHERE ld.username = ?
+                     ORDER BY CASE WHEN b.Status = "PENDING" THEN 1 ELSE 2 END`;
 
         // const getidsql = `SELECT ConsumerID 
         //                   FROM logindetails
@@ -205,8 +206,6 @@ export async function PayBill(req, resp) {
     //     ]);
 }
 
-
-
 export async function EnterReading(req, resp) {
   const sql = `UPDATE readings
                SET ReadingValue = ?, ReadingDate = ?
@@ -234,6 +233,67 @@ export async function EnterReading(req, resp) {
   }
 }
 
+export async function MyStatus(req, resp) {
+    try {
+        const sql = `SELECT c.*, m.Status
+                     FROM connections c
+                     JOIN meters m ON c.MeterID = m.MeterID 
+                     JOIN logindetails ld ON ld.ConsumerID = c.ConsumerID
+                     WHERE username = ?
+                     ORDER BY WarningCount DESC`;
 
+        const [data] = await mydatabase.execute(sql, [req.user.name]);
+    
+        return resp.status(201).json(data);
+    } catch (error) {
+        return resp.status(500).json({message: error.message});
+    }
+}
+
+export async function NewComplaint(req, resp) {
+
+    try {
+        const { meteraddress, metertype } = req.body;
+
+        var severity;
+        if(metertype === "low")
+            severity = 1;
+        else if(metertype === "medium")
+            severity = 2;
+        else
+            severity = 3;
+
+        const requestSql = `INSERT INTO complaints (ComplaintDetails, ComplaintDate, Severity, ConsumerID) 
+                            VALUES (?, NOW(), ?, ?);`;
+
+        const getConsumer = 'SELECT ConsumerID FROM logindetails WHERE (username = ?)';
+        const [consumer] = await mydatabase.execute(getConsumer, [req.user.name]);
+
+        await mydatabase.execute(requestSql, [meteraddress, severity, consumer[0].ConsumerID]);
+
+        return resp.status(201).json({message : "Complaint Lodged Successfully."});
+
+    } catch (error) {
+        return resp.status(500).json({message : error.message});
+    }
+}
+
+export async function GetMyComplaints(req, resp) {
+    try {
+        const sql = `SELECT *
+                     FROM complaints
+                     WHERE ConsumerID = ?
+                     ORDER BY Severity DESC`;
+
+        const getConsumer = 'SELECT ConsumerID FROM logindetails WHERE (username = ?)';
+        const [consumer] = await mydatabase.execute(getConsumer, [req.user.name]);
+
+        const [data] = await mydatabase.execute(sql, [consumer[0].ConsumerID]);
+    
+        return resp.status(201).json(data);
+    } catch (error) {
+        return resp.status(500).json({message: error.message});
+    }
+}
 
 // ?------------------------ END - DASHBOARD PAGE -----------------------
