@@ -1,80 +1,96 @@
-# ⚡️ ENERGIE FULL-STACK DATABASE MANAGEMENT APP ⚡️  
+# ⚡ ENERGIE — Full-Stack Database Management App
 
-A robust, **MERN-lite** (MySQL, Express, React, Node.js) application designed for efficient and secure management of relational data.  
-This project showcases **state-of-the-art security**, **clean architecture**, and **rapid deployment capabilities**.  
-
----
-
-## 🚀 Architectural Overview  
-
-This application follows a clean, decoupled architecture:  
-A modern **Single Page Application (SPA)** on the frontend communicates solely with a dedicated **RESTful API** on the backend.  
+A full-stack utility & consumer management system built with **MySQL, Express.js, Node.js, React, and TailwindCSS**.  
+ENERGIE manages customer accounts, meter readings, billing, and administrative operations with secure authentication and role-based access.
 
 ---
 
-## 🛠️ Technology Stack  
+## 📌 Features Overview
 
-| Layer | Technology | Role |
-|:------|:------------|:------|
-| 🎨 Frontend | **React** | Dynamic user interface; managed by `npm start`. |
-| ⚙️ Backend | **Node.js / Express** | RESTful API server, handles business logic and security. |
-| 🗄️ Database | **MySQL** | Persistent, relational data storage via XAMPP/WAMP. |
-| 🔄 HTTP Client | **Axios** | Used by React for making clean, promise-based requests to the backend API. |
+### 🔐 Role-Based Portals
+- **Consumer Dashboard**
+- **Meter Reader Dashboard**
+- **Admin Dashboard**
 
----
-
-## 🔒 Security & Interoperability Highlights  
-
-- **JWT Web Token System:**  
-  Implements **JSON Web Tokens (JWT)** for client authentication, ensuring stateless, secure sessions with token validation on protected routes.  
-
-- **CORS Configuration:**  
-  Explicit **CORS (Cross-Origin Resource Sharing)** rules enable safe, structured communication between the React frontend and the Express backend.  
+Each portal has **protected routes** — users cannot directly access `/admin`, `/consumer`, or `/meter-reader` without proper authorization.
 
 ---
 
-## ▶️ Quick Start Guide
-
-Follow these steps to get both the **Backend API** and the **React Frontend** running simultaneously.
-
-### 🧰 Prerequisites
-- **Node.js** installed on your system.  
-- A running **MySQL environment** (e.g., XAMPP or WAMP) for the database.
-
----
-
-### 🗄️ Step 1: Start the Database
-1. Launch **XAMPP/WAMP** or your preferred database manager.  
-2. Ensure **Apache** and **MySQL** services are running.
+## 👤 Consumer Features
+- View & edit profile  
+- Change password  
+- Request new meter connection  
+- View status of submitted requests  
+- Log complaints & delete complaints  
+- Track complaint status  
+- Demo payment system  
+- View meter status (active, blocked, warnings, etc.)
 
 ---
 
-### ⚙️ Step 2: Launch the Backend API
+## 🧑‍💼 Admin Features
+- Register new customers  
+- View all customers  
+- Approve or reject new connection requests  
+- Generate bills for customers  
+- View & resolve complaints  
+- Block meters automatically after **3+ warnings**  
+- Logout securely  
 
-```bash
-# Navigate to the backend directory
-cd backend
+---
 
-# Install all required Node dependencies
-npm install
+## 🔢 Meter Reader Features
+- Enter **meter number**  
+- Submit **meter reading units** for billing  
 
-# Start the Express server in development mode
-npm run dev
-```
-The backend server will run on **port 5050**.
+---
 
-### 🎨 Step 3: Launch the React Frontend
+## 🔐 Authentication & Security
+- **JWT Authentication**  
+- **CORS** for secure cross-origin access  
+- **Axios** for API communication  
+- **Route protection** on frontend & backend  
+- **MySQL connection pooling**  
+- **SQL transactions** where required  
 
-```bash
-# Open a new terminal tab and navigate to the frontend directory
-cd ../frontend
+---
 
-# Install all required React dependencies
-npm install
+## 🧱 Tech Stack
 
-# Start the React application
-npm start
-```
-The frontend will automatically open in your browser, typically on **port 3000**.
+### Frontend
+- React.js  
+- TailwindCSS  
+- Axios  
+- React Router DOM  
 
-Enjoy! 🎉
+### Backend
+- Node.js  
+- Express.js  
+- MySQL (Workbench)  
+- JWT  
+- CORS  
+
+### Other
+- SQL Procedures / Transactions  
+- RESTful API Architecture  
+
+---
+
+## 🧪 Future Enhancements
+- Real payment gateway integration  
+- Notification system (email/SMS)  
+- Admin analytics dashboard  
+- IoT / Smart meter integration  
+
+---
+
+## 📜 License
+This project is released under the **MIT License**.  
+See the [LICENSE](LICENSE) file for details.
+
+---
+
+## ✨ Author
+**Zafeer Mahmood**  
+Full-Stack Developer | MERN | SQL | Computer Science Student @ FAST
+
