@@ -86,7 +86,6 @@ Each portal has **protected routes** — users cannot directly access `/admin`, 
 
 ## 📜 License
 This project is released under the **MIT License**.  
-See the [LICENSE](LICENSE) file for details.
 
 ---
 
